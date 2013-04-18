@@ -71,15 +71,19 @@ class ForecastIO{
    * @param type $longitude
    * @return \ForecastIOConditions|boolean
    */
-  function getForecastToday($latitude, $longitude) {
+  function getForecastToday($latitude, $longitude, $today) {
     
     $data = $this->requestData($latitude, $longitude);
     
     if ($data !== false) {
       
       $conditions = array();
-      
-      $today = date('Y-m-d');
+
+      if ( empty($today) ) {
+      	$today = date('Y-m-d');
+      } else {
+	      //Do Nothing
+      }
       
       foreach ($data->hourly->data as $raw_data) {
         
